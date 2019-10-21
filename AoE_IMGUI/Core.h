@@ -10,4 +10,5 @@ class Core
 public:
 	Core();
 	void OnEndscene();
+	void OnTurn();
 };

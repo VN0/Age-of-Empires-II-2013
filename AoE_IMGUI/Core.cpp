@@ -84,7 +84,6 @@ void Core::OnEndscene()
 		return;
 	}
 
-
 	GameData* gameData = main->GameData;
 	if (!gameData)
 	{
@@ -97,7 +96,6 @@ void Core::OnEndscene()
 
 	}
 	int totalPlayers = Engine::Get()->GetTotalPlayers();
-
 
 	static bool openOverlay = true;
 	if (GetAsyncKeyState(VK_INSERT) & 1) { openOverlay = !openOverlay; }
@@ -121,7 +119,7 @@ void Core::OnEndscene()
 
 	for (int i = 0; i < totalPlayers; i++)
 	{
-	
+
 		Player* player = playerArray->playerData[i].player;
 		if (!player)
 		{
@@ -153,4 +151,9 @@ void Core::OnEndscene()
 		}
 		ImGui::End();
 	}
+}
+
+void Core::OnTurn()
+{
+	
 }

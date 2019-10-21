@@ -4,6 +4,7 @@
 #include "Renderer.h"
 #include "Engine.h"
 #include "Input.h"
+#include "ConvexHull.h"
 
 
 void DrawBox(Unit* unit, int32_t color)
@@ -34,6 +35,28 @@ void DrawBox(Unit* unit, int32_t color)
 	ImVec2 ivFour = ImVec2(four.x, four.y);
 
 	Renderer::Get()->RenderRect(ivOne, ivFour, ivTwo, ivThree, color);
+}
+
+void UnitCollisions::OnPlayerIteration(Player * player, int playerIndex)
+{
+	//if (playerIndex == 0)
+	//{
+		/*std::vector<Unit*> playerUnits = player->GetUnits();
+		Vector2* unitPositions = new Vector2[playerUnits.size()];
+		for (int i = 0; i < playerUnits.size(); i++)
+		{
+			unitPositions[i] = Engine::Get()->worldToScreen(Vector2(playerUnits[i]->vPos.x, playerUnits[i]->vPos.z));
+		}
+		ConvexHull ch = ConvexHull();
+		std::vector<Vector2> chPoints = ch.convexHull(unitPositions, playerUnits.size());
+
+		ImVec2* chPointsImVec = new ImVec2[chPoints.size()];
+		for (int i = 0; i < chPoints.size(); i++)
+		{
+			chPointsImVec[i] = ImVec2(chPoints[i].x, chPoints[i].y);
+		}
+		Renderer::Get()->RenderPolygon(chPointsImVec, chPoints.size(), 0xffffffff, 4);*/
+	//}
 }
 
 void UnitCollisions::OnUnitIteration(Unit* unit, Player* player, int playerIndex)

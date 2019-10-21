@@ -25,6 +25,7 @@ public:
 	KeyState      GetKeyState(uint32_t vk);
 	bool          IsKeyDown(uint32_t vk);
 	bool          WasKeyPressed(uint32_t vk);
+	void		  SendKey(uint32_t vk);
 
 	int GetMouseX();
 	int GetMouseY();

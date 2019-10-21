@@ -157,3 +157,22 @@ bool Input::IsMouseInRegion(int x1, int y1, int x2, int y2)
 		return false;
 	}
 }
+
+void Input::SendKey(uint32_t VK_KEY)
+{
+	INPUT ip;
+	// Set up a generic keyboard event.
+	ip.type = INPUT_KEYBOARD;
+	ip.ki.wScan = 0; // hardware scan code for key
+	ip.ki.time = 0;
+	ip.ki.dwExtraInfo = 0;
+
+	// Press ESC
+	ip.ki.wVk = VK_KEY; // virtual-key code for the "6" key
+	ip.ki.dwFlags = 0; // 0 for key press
+	SendInput(1, &ip, sizeof(INPUT));
+
+	// Release ESC
+	ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
+	SendInput(1, &ip, sizeof(INPUT));
+}

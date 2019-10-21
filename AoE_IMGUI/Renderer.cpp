@@ -79,6 +79,15 @@ void Renderer::RenderLine(const ImVec2& from, const ImVec2& to, uint32_t color, 
 	window->DrawList->AddLine(from, to, ImGui::GetColorU32({ r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f }), thickness);
 }
 
+void Renderer::RenderPolygon(const ImVec2* points, int pointCount, uint32_t color, float thickness)
+{
+	for (int i = 0; i < pointCount-1; i++)
+	{
+		RenderLine(points[i], points[i + 1], color, thickness);
+	}
+	RenderLine(points[pointCount-1], points[0], color, thickness);
+}
+
 
 
 

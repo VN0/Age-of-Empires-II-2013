@@ -24,6 +24,8 @@ extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam
 typedef HRESULT(__stdcall * f_EndScene)(IDirect3DDevice9 * pDevice);
 f_EndScene oEndScene;
 
+void* gameTimeHookContinue = NULL;
+
 typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);
 
 DetourHook endsceneHook = DetourHook();
@@ -99,23 +101,24 @@ VOID WINAPI OnDllDetach()
 #endif
 }
 
-//void testFunc()
-//{
-//	printf("Hooked\n");
-//}
-//
-//void __declspec(naked) GametimeIncreasedHook()
-//{
-//	__asm 
-//	{
-//		pushad
-//		pushfd
-//
-//		call testFunc
-//		popfd
-//		popad
-//	}
-//}
+void testFunc()
+{
+	core->OnTurn();
+}
+
+void __declspec(naked) GametimeIncreasedHook()
+{
+	__asm 
+	{
+		pushad
+		pushfd
+
+		call testFunc
+		popfd
+		popad
+		jmp gameTimeHookContinue
+	}
+}
 
 DWORD WINAPI MainThread(LPVOID param)
 {
@@ -148,9 +151,9 @@ DWORD WINAPI MainThread(LPVOID param)
 		Device->Release() , Device = nullptr;
 		
 	oEndScene = (f_EndScene)endsceneHook.Hook((PBYTE)pVTable[42], (PBYTE)Hooked_EndScene, 7);
-	//gameTimeHook.Hook((PBYTE)(DWORD)GetModuleHandle(NULL) + 0x338720, (PBYTE)GametimeIncreasedHook, 5);
+	gameTimeHookContinue = gameTimeHook.Hook((PBYTE)(DWORD)GetModuleHandle(NULL) + 0x338720, (PBYTE)GametimeIncreasedHook, 5);
 
-	while (!(GetAsyncKeyState(VK_DELETE) & 0x8000))
+	while (!(GetAsyncKeyState(0x5) & 0x8000))
 	{
 		Sleep(1);
 	}

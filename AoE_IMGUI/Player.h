@@ -44,6 +44,7 @@ public:
 	char pad_1AE4[1588]; //0x1AE4
 
 
-	std::vector<Unit*> getUnitsByBaseId(int baseId);
+	std::vector<Unit*> GetUnitsByBaseId(int baseId);
+	std::vector<Unit*> GetUnits();
 
 }; //Size: 0x2118
