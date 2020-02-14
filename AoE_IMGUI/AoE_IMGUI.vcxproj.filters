@@ -39,13 +39,7 @@
     <ClCompile Include="Maphack.cpp">
       <Filter>Source Files\Features</Filter>
     </ClCompile>
-    <ClCompile Include="UnitCollisions.cpp">
-      <Filter>Source Files\Features</Filter>
-    </ClCompile>
     <ClCompile Include="RessourceInformation.cpp">
-      <Filter>Source Files\Features</Filter>
-    </ClCompile>
-    <ClCompile Include="UnitMovement.cpp">
       <Filter>Source Files\Features</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
@@ -60,14 +54,8 @@
     <ClCompile Include="Unit.cpp">
       <Filter>Source Files\SDK</Filter>
     </ClCompile>
-    <ClCompile Include="ConvexHull.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="RedBlackTree.cpp">
-      <Filter>Source Files\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Intersection.cpp">
-      <Filter>Source Files\Math</Filter>
+    <ClCompile Include="ESP.cpp">
+      <Filter>Source Files\Features</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,13 +116,7 @@
     <ClInclude Include="Maphack.h">
       <Filter>Header Files\Features</Filter>
     </ClInclude>
-    <ClInclude Include="UnitCollisions.h">
-      <Filter>Header Files\Features</Filter>
-    </ClInclude>
     <ClInclude Include="RessourceInformation.h">
-      <Filter>Header Files\Features</Filter>
-    </ClInclude>
-    <ClInclude Include="UnitMovement.h">
       <Filter>Header Files\Features</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
@@ -155,17 +137,8 @@
     <ClInclude Include="ObjectManager.h">
       <Filter>Header Files\SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ConvexHull.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Intersection.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="RedBlackTree.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="EventQueueEntry.h">
-      <Filter>Header Files\Math</Filter>
+    <ClInclude Include="ESP.h">
+      <Filter>Header Files\Features</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -195,12 +168,6 @@
     </Filter>
     <Filter Include="Source Files\SDK">
       <UniqueIdentifier>{ba73569b-9155-41bf-9f2d-ec37c62902bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Math">
-      <UniqueIdentifier>{63983777-592c-4232-a891-2daacb7d47c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Math">
-      <UniqueIdentifier>{5f47497a-80d0-43b9-a62c-2d0cab0dfbe8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Features\imgui">
       <UniqueIdentifier>{e29cd3c3-0059-42b3-9119-586b7bae21fc}</UniqueIdentifier>

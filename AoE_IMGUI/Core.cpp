@@ -15,19 +15,17 @@
 #include "FeatureManager.h"
 
 //Features
-#include "UnitCollisions.h"
-#include "UnitMovement.h"
+#include "ESP.h"
 #include "Maphack.h"
 #include "RessourceInformation.h"
 #include "Automation.h"
 
 Core::Core()
 {
-	FeatureManager::Get()->registerFeature(new UnitCollisions());
-	FeatureManager::Get()->registerFeature(new UnitMovement());
+	FeatureManager::Get()->registerFeature(new ESP());
 	FeatureManager::Get()->registerFeature(new Maphack());
-	FeatureManager::Get()->registerFeature(new RessourceInformation());
-	FeatureManager::Get()->registerFeature(new Automation());
+	//FeatureManager::Get()->registerFeature(new RessourceInformation());
+	//FeatureManager::Get()->registerFeature(new Automation());
 
 	FeatureManager::Get()->OnInitialise();
 }
@@ -61,7 +59,7 @@ void createPlayerTreeNode(Player* player, int playerIndex)
 					{
 						infantryCount++;
 					}
-					if (unit->pUnitData->Class ==  (int16_t)EnumUnitDataClass::Cavalry)
+					if (unit->pUnitData->Class == (int16_t)EnumUnitDataClass::Cavalry)
 					{
 						calavaryCount++;
 					}
@@ -100,16 +98,22 @@ void Core::OnEndscene()
 	static bool openOverlay = true;
 	if (GetAsyncKeyState(VK_INSERT) & 1) { openOverlay = !openOverlay; }
 
+
 	Renderer::Get()->BeginScene();
 	FeatureManager::Get()->OnDraw();
 	Player* gaiaPlayer = *(Player**)(playerArray);
+
+	static DWORD buildingVmt = *(DWORD*)playerArray->playerData[0].player->objectManager->units[0];
+	static DWORD unitVmt = *(DWORD*)playerArray->playerData[0].player->objectManager->units[4];
+
 
 	if (gaiaPlayer)
 	{
 		for (int i = 0; i < gaiaPlayer->objectManager->iObjectCount; i++)
 		{
+			
 			Unit* unit = gaiaPlayer->objectManager->units[i];
-			if (!unit)
+			if (!unit || !(*(DWORD*)unit == unitVmt || *(DWORD*)unit == buildingVmt))
 			{
 				continue;
 			}
@@ -119,7 +123,6 @@ void Core::OnEndscene()
 
 	for (int i = 0; i < totalPlayers; i++)
 	{
-
 		Player* player = playerArray->playerData[i].player;
 		if (!player)
 		{
@@ -133,10 +136,20 @@ void Core::OnEndscene()
 			{
 				continue;
 			}
-			FeatureManager::Get()->OnUnitIteration(unit, player, i);
+			if (*(DWORD*)unit == unitVmt)
+			{
+				FeatureManager::Get()->OnUnitIteration(unit, player, i);
+			}
+			if (*(DWORD*)unit == buildingVmt)
+			{
+				FeatureManager::Get()->OnBuildingIteration(unit, player, i);
+			}
 		}
 	}
+
+
 	Renderer::Get()->EndScene();
+
 
 	ImGui::SetNextWindowBgAlpha(0.35f);
 	if (openOverlay)
@@ -145,15 +158,16 @@ void Core::OnEndscene()
 		{
 			for (int i = 0; i < totalPlayers; i++)
 			{
+				ImGui::Text("Player %x", playerArray->playerData[i].player);
+				ImGui::Text("Entitylist %x", playerArray->playerData[i].player->objectManager);
+				ImGui::Text("EntitylistCount %x", &playerArray->playerData[i].player->objectManager->iObjectCount);
 				createPlayerTreeNode(playerArray->playerData[i].player, i);
 			}
 			FeatureManager::Get()->OnMenuMainWindow();
 		}
 		ImGui::End();
 	}
-}
 
-void Core::OnTurn()
-{
-	
+
+
 }

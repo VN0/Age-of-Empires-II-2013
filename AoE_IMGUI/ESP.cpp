@@ -1,10 +1,9 @@
-#include "UnitCollisions.h"
+#include "ESP.h"
 
 #include "Sdk.h"
 #include "Renderer.h"
 #include "Engine.h"
 #include "Input.h"
-#include "ConvexHull.h"
 
 
 void DrawBox(Unit* unit, int32_t color)
@@ -37,42 +36,54 @@ void DrawBox(Unit* unit, int32_t color)
 	Renderer::Get()->RenderRect(ivOne, ivFour, ivTwo, ivThree, color);
 }
 
-void UnitCollisions::OnPlayerIteration(Player * player, int playerIndex)
+void ESP::DrawDestination(Unit* unit, int playerIndex)
 {
-	//if (playerIndex == 0)
-	//{
-		/*std::vector<Unit*> playerUnits = player->GetUnits();
-		Vector2* unitPositions = new Vector2[playerUnits.size()];
-		for (int i = 0; i < playerUnits.size(); i++)
+	bool canHaveDestination = unit->mileage > 0 && unit->fHealth > 0;
+	if (canHaveDestination)
+	{
+		bool pointersNotNull = unit->pTarget != nullptr && unit->pTarget->pTarget != nullptr && unit->pTarget->pTarget->pTargetData != nullptr;
+		if (pointersNotNull)
 		{
-			unitPositions[i] = Engine::Get()->worldToScreen(Vector2(playerUnits[i]->vPos.x, playerUnits[i]->vPos.z));
+			Vector2 destGamePos = unit->pTarget->pTarget->pTargetData->Destination;
+			if (destGamePos.x > 0 && destGamePos.y > 0)
+			{
+				Vector2 destPosition = Engine::Get()->worldToScreen(destGamePos);
+				Vector2 unitPosition = Engine::Get()->worldToScreen(unit);
+				Renderer::Get()->RenderLine(ImVec2(unitPosition.x, unitPosition.y), ImVec2(destPosition.x, destPosition.y), colors_hex[playerIndex], 0.5f);
+			}
 		}
-		ConvexHull ch = ConvexHull();
-		std::vector<Vector2> chPoints = ch.convexHull(unitPositions, playerUnits.size());
-
-		ImVec2* chPointsImVec = new ImVec2[chPoints.size()];
-		for (int i = 0; i < chPoints.size(); i++)
-		{
-			chPointsImVec[i] = ImVec2(chPoints[i].x, chPoints[i].y);
-		}
-		Renderer::Get()->RenderPolygon(chPointsImVec, chPoints.size(), 0xffffffff, 4);*/
-	//}
+	}
 }
 
-void UnitCollisions::OnUnitIteration(Unit* unit, Player* player, int playerIndex)
+
+void ESP::OnUnitIteration(Unit* unit, Player* player, int playerIndex)
 {
-	if (playerEsp[playerIndex])
+	if (playerUnitEsp[playerIndex])
+	{
+		DrawBox(unit, colors_hex[playerIndex]);
+		if (playerUnitDestinationEsp[playerIndex])
+		{
+			DrawDestination(unit, playerIndex);
+		}
+	}
+}
+
+void ESP::OnBuildingIteration(Unit* unit, Player* player, int playerIndex)
+{
+	if (playerBuildingEsp[playerIndex])
 	{
 		DrawBox(unit, colors_hex[playerIndex]);
 	}
 }
 
-void UnitCollisions::OnMenuPlayerTreenode(Player * player, int playerIndex)
+void ESP::OnMenuPlayerTreenode(Player * player, int playerIndex)
 {
 	if (ImGui::TreeNode("ESP"))
 	{
 		ImGui::PushItemWidth(100);
-		ImGui::Checkbox("Enabled", &playerEsp[playerIndex]);
+		ImGui::Checkbox("Unit", &playerUnitEsp[playerIndex]);
+		ImGui::Checkbox("Unit Destination", &enabled);
+		ImGui::Checkbox("Building", &playerBuildingEsp[playerIndex]);
 		if (ImGui::ColorPicker3("Color", colors[playerIndex],ImGuiColorEditFlags_NoPicker || ImGuiColorEditFlags_NoOptions || ImGuiColorEditFlags_NoSmallPreview ||  ImGuiColorEditFlags_NoInputs ||  ImGuiColorEditFlags_NoTooltip ||  ImGuiColorEditFlags_NoLabel || ImGuiColorEditFlags_NoSidePreview || ImGuiColorEditFlags_NoDragDrop))
 		{
 			int r = colors[playerIndex][0] * 255;
@@ -84,11 +95,10 @@ void UnitCollisions::OnMenuPlayerTreenode(Player * player, int playerIndex)
 	}
 }
 
-void UnitCollisions::OnNeutralUnit(Unit * unit)
+void ESP::OnNeutralUnit(Unit * unit)
 {
 	if (gaiaEsp)
 	{
-		//DrawBox(unit, 0xffffffff);
 		std::string unitName = unit->pUnitData->name;
 		Vector2 screenPos = Engine::Get()->worldToScreen(unit);
 		if (strcmp(unitName.c_str(), "BOARX") == 0)
@@ -109,7 +119,7 @@ void UnitCollisions::OnNeutralUnit(Unit * unit)
 	}
 }
 
-void UnitCollisions::OnMenuMainWindow()
+void ESP::OnMenuMainWindow()
 {
 	ImGui::Checkbox("GaiaESP", &gaiaEsp);
 }

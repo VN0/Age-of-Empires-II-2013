@@ -24,6 +24,7 @@ void Automation::OnMenuMainWindow()
 
 void Automation::OnMenuPlayerTreenode(Player * player, int playerIndex)
 {
+
 }
 
 void Automation::OnPlayerIteration(Player * player, int playerIndex)

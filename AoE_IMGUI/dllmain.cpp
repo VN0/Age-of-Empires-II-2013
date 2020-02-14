@@ -16,8 +16,9 @@
 #include "Input.h"
 
 
+
 const char* windowName = "Age of Empires II: HD Edition"; 
-Core* core = new Core();
+
 
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -55,7 +56,7 @@ HRESULT __stdcall Hooked_EndScene(IDirect3DDevice9 * pDevice) // Our hooked ends
 
 	ImGuiIO& io = ImGui::GetIO();
 
-	
+	static Core* core = new Core();
 	core->OnEndscene();
 
 	ImGui::EndFrame();
@@ -101,24 +102,21 @@ VOID WINAPI OnDllDetach()
 #endif
 }
 
-void testFunc()
-{
-	core->OnTurn();
-}
 
-void __declspec(naked) GametimeIncreasedHook()
-{
-	__asm 
-	{
-		pushad
-		pushfd
+//void __declspec(naked) GametimeIncreasedHook()
+//{
+//	__asm 
+//	{
+//		pushad
+//		pushfd
+//
+//		call testFunc
+//		popfd
+//		popad
+//		jmp gameTimeHookContinue
+//	}
+//}
 
-		call testFunc
-		popfd
-		popad
-		jmp gameTimeHookContinue
-	}
-}
 
 DWORD WINAPI MainThread(LPVOID param)
 {
@@ -148,10 +146,16 @@ DWORD WINAPI MainThread(LPVOID param)
 	void ** pVTable = *reinterpret_cast<void***>(Device); 
 
 	if (Device)
-		Device->Release() , Device = nullptr;
-		
+	{
+		Device->Release();
+
+	}
 	oEndScene = (f_EndScene)endsceneHook.Hook((PBYTE)pVTable[42], (PBYTE)Hooked_EndScene, 7);
-	gameTimeHookContinue = gameTimeHook.Hook((PBYTE)(DWORD)GetModuleHandle(NULL) + 0x338720, (PBYTE)GametimeIncreasedHook, 5);
+	//gameTimeHookContinue = gameTimeHook.Hook((PBYTE)(DWORD)GetModuleHandle(NULL) + 0x338720, (PBYTE)GametimeIncreasedHook, 5);
+
+	//printf("Endscene: %x\n", pVTable[42]);
+	//printf("Gametime: %x\n", (DWORD)GetModuleHandle(NULL) + 0x338720);
+	//printf("UnitIteration: %x\n", (DWORD)GetModuleHandle(NULL) + 0x43633A);
 
 	while (!(GetAsyncKeyState(0x5) & 0x8000))
 	{
@@ -162,7 +166,8 @@ DWORD WINAPI MainThread(LPVOID param)
 	//Restore hooks and end thread
 	(WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)oWndProc);
 	endsceneHook.Unhook();
-	gameTimeHook.Unhook();
+	//gameTimeHook.Unhook();
+	//unitIterationHook.Unhook();
 	FreeLibraryAndExitThread((HMODULE)param, 0);
 	return false; 
 }

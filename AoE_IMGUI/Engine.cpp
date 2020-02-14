@@ -68,7 +68,7 @@ Vector2 Engine::worldToScreen(Unit* unit)
 void Engine::SendChatMessage(char * message)
 {
 	typedef void(__stdcall * SendChatMessage)(char* message);
-	static SendChatMessage sendChatMessage = (SendChatMessage)(base + 0x286A40);
+	static SendChatMessage sendChatMessage = (SendChatMessage)(base + Offsets::sendChat);
 
 	sendChatMessage(message);
 }

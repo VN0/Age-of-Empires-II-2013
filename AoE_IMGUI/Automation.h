@@ -4,6 +4,7 @@
 class Automation : public Feature
 {
 
+	//Callbacks
 	void OnInitialise();
 
 	void OnDraw();

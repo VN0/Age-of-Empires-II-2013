@@ -5,10 +5,11 @@
  * - TODO: OnTurn, OnEnemyCommand, OnChatMessage, OnGameStarts, OnGameEnds...
  * - For now we just do everything from endscene. 
  */
+
+class Unit;
 class Core
 {
 public:
 	Core();
 	void OnEndscene();
-	void OnTurn();
 };

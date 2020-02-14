@@ -26,4 +26,5 @@ public:
 	void OnPlayerIteration(Player* player, int playerIndex);
 	void OnUnitIteration(Unit* unit, Player * player, int playerIndex);
 	void OnNeutralUnit(Unit* unit);
+	void OnBuildingIteration(Unit* unit, Player* player, int playerIndex);
 };

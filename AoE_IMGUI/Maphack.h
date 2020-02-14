@@ -6,5 +6,6 @@ class Maphack : public Feature
 	typedef int(__cdecl *tMaphack)();
 	tMaphack oMaphack;
 
+	//Callbacks
 	void OnMenuMainWindow();
 };

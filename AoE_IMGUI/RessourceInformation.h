@@ -4,5 +4,6 @@
 
 class RessourceInformation : public Feature
 {
+	//Callbacks
 	void OnMenuPlayerTreenode(Player* player, int playerIndex);
 };

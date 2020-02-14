@@ -22,32 +22,32 @@
     <ProjectGuid>{522F47F1-8C0D-4C01-B1AC-CF8581423DBB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DirectXHook</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -95,6 +95,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -164,7 +165,6 @@
     <ClCompile Include="..\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="..\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Automation.cpp" />
-    <ClCompile Include="ConvexHull.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DetourHook.cpp" />
     <ClCompile Include="Dllmain.cpp">
@@ -185,15 +185,12 @@
     <ClCompile Include="Feature.cpp" />
     <ClCompile Include="FeatureManager.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Intersection.cpp" />
     <ClCompile Include="Maphack.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="RedBlackTree.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RessourceInformation.cpp" />
     <ClCompile Include="Unit.cpp" />
-    <ClCompile Include="UnitCollisions.cpp" />
-    <ClCompile Include="UnitMovement.cpp" />
+    <ClCompile Include="ESP.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ImGui\imconfig.h" />
@@ -206,28 +203,23 @@
     <ClInclude Include="..\ImGui\imstb_truetype.h" />
     <ClInclude Include="Automation.h" />
     <ClInclude Include="Classes.h" />
-    <ClInclude Include="ConvexHull.h" />
     <ClInclude Include="DetourHook.h" />
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="EventQueueEntry.h" />
     <ClInclude Include="Feature.h" />
     <ClInclude Include="FeatureManager.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="Intersection.h" />
     <ClInclude Include="Maphack.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Offsets.h" />
     <ClInclude Include="Patternscaning.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="RedBlackTree.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RessourceInformation.h" />
     <ClInclude Include="Ressources.h" />
     <ClInclude Include="Sdk.h" />
     <ClInclude Include="Unit.h" />
-    <ClInclude Include="UnitCollisions.h" />
-    <ClInclude Include="UnitMovement.h" />
+    <ClInclude Include="ESP.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
