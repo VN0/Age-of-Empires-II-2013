@@ -30,5 +30,5 @@ public:
 	Vector2 worldToScreen(Unit* unit);
 
 	
-	void SendChatMessage(char* message);
+	void SendChatMessage(char* message, bool teamchat);
 };

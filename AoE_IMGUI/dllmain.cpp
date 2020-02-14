@@ -148,7 +148,6 @@ DWORD WINAPI MainThread(LPVOID param)
 	if (Device)
 	{
 		Device->Release();
-
 	}
 	oEndScene = (f_EndScene)endsceneHook.Hook((PBYTE)pVTable[42], (PBYTE)Hooked_EndScene, 7);
 	//gameTimeHookContinue = gameTimeHook.Hook((PBYTE)(DWORD)GetModuleHandle(NULL) + 0x338720, (PBYTE)GametimeIncreasedHook, 5);

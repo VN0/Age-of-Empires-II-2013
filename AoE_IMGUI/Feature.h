@@ -22,6 +22,4 @@ public:
 	virtual void OnBuildingIteration(Unit* unit, Player* player, int playerIndex);
 
 	virtual void OnNeutralUnit(Unit* unit);
-
-	
 };

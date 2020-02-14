@@ -6,7 +6,7 @@
 #include "Input.h"
 
 
-void DrawBox(Unit* unit, int32_t color)
+void ESP::DrawBox(Unit* unit, int playerIndex, bool isBuilding, int32_t color)
 {
 	Vector3 one3 = unit->vPos;
 	one3.x -= unit->pUnitData->collisionX;
@@ -33,7 +33,16 @@ void DrawBox(Unit* unit, int32_t color)
 	ImVec2 ivThree = ImVec2(three.x, three.y);
 	ImVec2 ivFour = ImVec2(four.x, four.y);
 
+	
 	Renderer::Get()->RenderRect(ivOne, ivFour, ivTwo, ivThree, color);
+
+	if ((isBuilding && playerBuildingNameEsp[playerIndex]) || (!isBuilding && playerUnitNameEsp[playerIndex]))
+	{
+		Vector3 textPos = unit->vPos;
+		Vector2 screenTextPos = Engine::Get()->worldToScreen(textPos);
+		ImVec2 ivTextPos = ImVec2(screenTextPos.x, screenTextPos.y);
+		Renderer::Get()->RenderText(unit->pUnitData->name, ivTextPos, 16, color, false);
+	}
 }
 
 void ESP::DrawDestination(Unit* unit, int playerIndex)
@@ -60,7 +69,7 @@ void ESP::OnUnitIteration(Unit* unit, Player* player, int playerIndex)
 {
 	if (playerUnitEsp[playerIndex])
 	{
-		DrawBox(unit, colors_hex[playerIndex]);
+		DrawBox(unit, playerIndex, false, colors_hex[playerIndex]);
 		if (playerUnitDestinationEsp[playerIndex])
 		{
 			DrawDestination(unit, playerIndex);
@@ -72,7 +81,7 @@ void ESP::OnBuildingIteration(Unit* unit, Player* player, int playerIndex)
 {
 	if (playerBuildingEsp[playerIndex])
 	{
-		DrawBox(unit, colors_hex[playerIndex]);
+		DrawBox(unit, playerIndex, true, colors_hex[playerIndex]);
 	}
 }
 
@@ -82,8 +91,10 @@ void ESP::OnMenuPlayerTreenode(Player * player, int playerIndex)
 	{
 		ImGui::PushItemWidth(100);
 		ImGui::Checkbox("Unit", &playerUnitEsp[playerIndex]);
-		ImGui::Checkbox("Unit Destination", &enabled);
+		ImGui::Checkbox("Unit Name", &playerUnitNameEsp[playerIndex]);
+		ImGui::Checkbox("Unit Destination", &playerUnitDestinationEsp[playerIndex]);
 		ImGui::Checkbox("Building", &playerBuildingEsp[playerIndex]);
+		ImGui::Checkbox("Building Name", &playerBuildingNameEsp[playerIndex]);
 		if (ImGui::ColorPicker3("Color", colors[playerIndex],ImGuiColorEditFlags_NoPicker || ImGuiColorEditFlags_NoOptions || ImGuiColorEditFlags_NoSmallPreview ||  ImGuiColorEditFlags_NoInputs ||  ImGuiColorEditFlags_NoTooltip ||  ImGuiColorEditFlags_NoLabel || ImGuiColorEditFlags_NoSidePreview || ImGuiColorEditFlags_NoDragDrop))
 		{
 			int r = colors[playerIndex][0] * 255;

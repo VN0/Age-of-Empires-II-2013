@@ -19,20 +19,24 @@
 #include "Maphack.h"
 #include "RessourceInformation.h"
 #include "Automation.h"
+#include "CastleWarning.h"
 
 Core::Core()
 {
+	//Register Features here
 	FeatureManager::Get()->registerFeature(new ESP());
-	FeatureManager::Get()->registerFeature(new Maphack());
-	//FeatureManager::Get()->registerFeature(new RessourceInformation());
+	FeatureManager::Get()->registerFeature(new CastleWarning());
+	FeatureManager::Get()->registerFeature(new RessourceInformation());
 	//FeatureManager::Get()->registerFeature(new Automation());
+	//FeatureManager::Get()->registerFeature(new Maphack());
+
 
 	FeatureManager::Get()->OnInitialise();
 }
 
 void createPlayerTreeNode(Player* player, int playerIndex)
 {
-	if (ImGui::TreeNode((char*)player->pName))
+	if (ImGui::TreeNode((char*)player->name))
 	{
 		FeatureManager::Get()->OnMenuPlayerTreenode(player, playerIndex);
 		if (ImGui::TreeNode("Units"))

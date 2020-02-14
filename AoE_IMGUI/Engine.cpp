@@ -4,6 +4,8 @@
 #include "Offsets.h"
 
 
+#include <string>
+
 Engine* Engine::instance = NULL;
 
 Engine::Engine()
@@ -65,10 +67,20 @@ Vector2 Engine::worldToScreen(Unit* unit)
 	return worldToScreen(unit->vPos);
 }
 
-void Engine::SendChatMessage(char * message)
+void Engine::SendChatMessage(char * message, bool teamchat = false)
 {
 	typedef void(__stdcall * SendChatMessage)(char* message);
 	static SendChatMessage sendChatMessage = (SendChatMessage)(base + Offsets::sendChat);
 
-	sendChatMessage(message);
+	if (teamchat)
+	{
+		std::string sMessage  = message;
+		std::string teamMessage = std::string(";") + message;
+		char* cstr = &teamMessage[0];
+		sendChatMessage(cstr);
+	}
+	else
+	{
+		sendChatMessage(message);
+	}
 }

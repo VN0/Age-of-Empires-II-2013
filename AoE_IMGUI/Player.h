@@ -38,7 +38,7 @@ public:
 	char pad_0258[232]; //0x0258
 	int32_t WrongSelectedUnitsCount; //0x0340
 	char pad_0344[6028]; //0x0344
-	class PlayerName *pName; //0x1AD0
+	char* name; //0x1AD0
 	char pad_1AD4[12]; //0x1AD4
 	class Civilization *N00000C58; //0x1AE0
 	char pad_1AE4[1588]; //0x1AE4
