@@ -127,6 +127,17 @@ void ESP::OnNeutralUnit(Unit * unit)
 			Renderer::Get()->RenderCircleFilled(ImVec2(screenPos.x, screenPos.y), 40, 0x40ff0000);
 			Renderer::Get()->RenderText(unitName, ImVec2(screenPos.x, screenPos.y), 16, 0xffffffff);
 		}
+
+		if (strcmp(unitName.c_str(), "FISHX") == 0 || strcmp(unitName.c_str(), "FISH1") == 0 || strcmp(unitName.c_str(), "FISH2") == 0 || strcmp(unitName.c_str(), "FISH3") == 0 || strcmp(unitName.c_str(), "FISH4") == 0)
+		{
+			Renderer::Get()->RenderCircleFilled(ImVec2(screenPos.x, screenPos.y), 40, 0x400000ff);
+			Renderer::Get()->RenderText(unitName, ImVec2(screenPos.x, screenPos.y), 16, 0xffffffff);
+		}
+		if (strcmp(unitName.c_str(), "RELIC") == 0)
+		{
+			Renderer::Get()->RenderCircleFilled(ImVec2(screenPos.x, screenPos.y), 40, 0x40ffffff);
+			Renderer::Get()->RenderText(unitName, ImVec2(screenPos.x, screenPos.y), 16, 0xffffffff);
+		}
 	}
 }
 

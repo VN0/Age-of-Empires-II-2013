@@ -28,7 +28,7 @@ Core::Core()
 	FeatureManager::Get()->registerFeature(new CastleWarning());
 	FeatureManager::Get()->registerFeature(new RessourceInformation());
 	//FeatureManager::Get()->registerFeature(new Automation());
-	//FeatureManager::Get()->registerFeature(new Maphack());
+	FeatureManager::Get()->registerFeature(new Maphack());
 
 
 	FeatureManager::Get()->OnInitialise();
@@ -117,7 +117,7 @@ void Core::OnEndscene()
 		{
 			
 			Unit* unit = gaiaPlayer->objectManager->units[i];
-			if (!unit || !(*(DWORD*)unit == unitVmt || *(DWORD*)unit == buildingVmt))
+			if (!unit)// || !(*(DWORD*)unit == unitVmt || *(DWORD*)unit == buildingVmt))
 			{
 				continue;
 			}
