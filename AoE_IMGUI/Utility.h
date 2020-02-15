@@ -2,6 +2,7 @@
 
 #include <Windows.h>
 
+//Thanks to Rake for his scanning code
 class Utility
 {
 public:
