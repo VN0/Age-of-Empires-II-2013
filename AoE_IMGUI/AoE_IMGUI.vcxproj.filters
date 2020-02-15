@@ -60,6 +60,9 @@
     <ClCompile Include="CastleWarning.cpp">
       <Filter>Source Files\Features</Filter>
     </ClCompile>
+    <ClCompile Include="RenameUnits.cpp">
+      <Filter>Source Files\Features</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ImGui\imconfig.h">
@@ -145,6 +148,12 @@
     </ClInclude>
     <ClInclude Include="CastleWarning.h">
       <Filter>Header Files\Features</Filter>
+    </ClInclude>
+    <ClInclude Include="RenameUnits.h">
+      <Filter>Header Files\Features</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

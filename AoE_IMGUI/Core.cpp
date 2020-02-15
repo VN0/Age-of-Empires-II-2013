@@ -20,6 +20,7 @@
 #include "RessourceInformation.h"
 #include "Automation.h"
 #include "CastleWarning.h"
+#include "RenameUnits.h"
 
 Core::Core()
 {
@@ -28,6 +29,7 @@ Core::Core()
 	FeatureManager::Get()->registerFeature(new CastleWarning());
 	FeatureManager::Get()->registerFeature(new RessourceInformation());
 	//FeatureManager::Get()->registerFeature(new Automation());
+	FeatureManager::Get()->registerFeature(new RenameUnits());
 	FeatureManager::Get()->registerFeature(new Maphack());
 
 
