@@ -45,7 +45,7 @@ void ESP::DrawBox(Unit* unit, int playerIndex, bool isBuilding, int32_t color)
 	}
 }
 
-void ESP::DrawDestination(Unit* unit, int playerIndex)
+void ESP::DrawDestination(Unit* unit, int playerColorIndex)
 {
 	bool canHaveDestination = unit->mileage > 0 && unit->fHealth > 0;
 	if (canHaveDestination)
@@ -58,7 +58,7 @@ void ESP::DrawDestination(Unit* unit, int playerIndex)
 			{
 				Vector2 destPosition = Engine::Get()->worldToScreen(destGamePos);
 				Vector2 unitPosition = Engine::Get()->worldToScreen(unit);
-				Renderer::Get()->RenderLine(ImVec2(unitPosition.x, unitPosition.y), ImVec2(destPosition.x, destPosition.y), colors_hex[playerIndex], 0.5f);
+				Renderer::Get()->RenderLine(ImVec2(unitPosition.x, unitPosition.y), ImVec2(destPosition.x, destPosition.y), colors_hex[playerColorIndex], 0.5f);
 			}
 		}
 	}
@@ -69,10 +69,10 @@ void ESP::OnUnitIteration(Unit* unit, Player* player, int playerIndex)
 {
 	if (playerUnitEsp[playerIndex])
 	{
-		DrawBox(unit, playerIndex, false, colors_hex[playerIndex]);
+		DrawBox(unit, playerIndex, false, colors_hex[player->colorPtr->playerColor]);
 		if (playerUnitDestinationEsp[playerIndex])
 		{
-			DrawDestination(unit, playerIndex);
+			DrawDestination(unit, player->colorPtr->playerColor);
 		}
 	}
 }
@@ -81,7 +81,7 @@ void ESP::OnBuildingIteration(Unit* unit, Player* player, int playerIndex)
 {
 	if (playerBuildingEsp[playerIndex])
 	{
-		DrawBox(unit, playerIndex, true, colors_hex[playerIndex]);
+		DrawBox(unit, playerIndex, true, colors_hex[player->colorPtr->playerColor]);
 	}
 }
 
@@ -95,12 +95,12 @@ void ESP::OnMenuPlayerTreenode(Player * player, int playerIndex)
 		ImGui::Checkbox("Unit Destination", &playerUnitDestinationEsp[playerIndex]);
 		ImGui::Checkbox("Building", &playerBuildingEsp[playerIndex]);
 		ImGui::Checkbox("Building Name", &playerBuildingNameEsp[playerIndex]);
-		if (ImGui::ColorPicker3("Color", colors[playerIndex],ImGuiColorEditFlags_NoPicker || ImGuiColorEditFlags_NoOptions || ImGuiColorEditFlags_NoSmallPreview ||  ImGuiColorEditFlags_NoInputs ||  ImGuiColorEditFlags_NoTooltip ||  ImGuiColorEditFlags_NoLabel || ImGuiColorEditFlags_NoSidePreview || ImGuiColorEditFlags_NoDragDrop))
+		if (ImGui::ColorPicker3("Color", colors[player->colorPtr->playerColor],ImGuiColorEditFlags_NoPicker || ImGuiColorEditFlags_NoOptions || ImGuiColorEditFlags_NoSmallPreview ||  ImGuiColorEditFlags_NoInputs ||  ImGuiColorEditFlags_NoTooltip ||  ImGuiColorEditFlags_NoLabel || ImGuiColorEditFlags_NoSidePreview || ImGuiColorEditFlags_NoDragDrop))
 		{
 			int r = colors[playerIndex][0] * 255;
 			int g = colors[playerIndex][1] * 255;
 			int b = colors[playerIndex][2] * 255;
-			colors_hex[playerIndex] = ((0xff) << 24) + ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+			colors_hex[player->colorPtr->playerColor] = ((0xff) << 24) + ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 		}
 		ImGui::TreePop();
 	}

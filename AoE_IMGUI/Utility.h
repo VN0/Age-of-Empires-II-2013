@@ -63,4 +63,5 @@ public:
 
         return Scan(pattern, mask, 0x0, (uintptr_t)kernelMemory);
     }
+
 };

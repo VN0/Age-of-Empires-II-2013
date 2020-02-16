@@ -2,6 +2,7 @@
 
 #include "Sdk.h"
 #include "Offsets.h"
+#include "Renderer.h"
 
 
 #include <string>
@@ -83,4 +84,42 @@ void Engine::SendChatMessage(char * message, bool teamchat = false)
 	{
 		sendChatMessage(message);
 	}
+}
+
+uint32_t Engine::GetPlayerColor(int colorIndex)
+{
+	return playerColors[colorIndex];
+}
+
+ImVec4 Engine::GetPlayerColorImGUI(int colorIndex)
+{
+	ImVec4 color;
+	switch (colorIndex)
+	{
+	case 0:
+		color = ImVec4(0, 0, 1, 1);
+		break;
+	case 1:
+		color = ImVec4(1, 0, 0, 1);
+		break;
+	case 2:
+		color = ImVec4(0, 1, 0, 1);
+		break;
+	case 3:
+		color = ImVec4(1, 1, 0, 1);
+		break;
+	case 4:
+		color = ImVec4(0, 1, 1, 1);
+		break;
+	case 5:
+		color = ImVec4(1, 0, 1, 1);
+		break;
+	case 6:
+		color = ImVec4(0.5, 0.5, 0.5, 1);
+		break;
+	case 7:
+		color = ImVec4(1, 0.5, 0, 1);
+		break;
+	}
+	return color;
 }

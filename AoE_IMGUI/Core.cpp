@@ -38,8 +38,10 @@ Core::Core()
 
 void createPlayerTreeNode(Player* player, int playerIndex)
 {
+	ImGui::PushStyleColor(ImGuiCol_Text, Engine::Get()->GetPlayerColorImGUI(player->colorPtr->playerColor));
 	if (ImGui::TreeNode((char*)player->name))
 	{
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1,1,1,1));
 		FeatureManager::Get()->OnMenuPlayerTreenode(player, playerIndex);
 		if (ImGui::TreeNode("Units"))
 		{
@@ -77,7 +79,9 @@ void createPlayerTreeNode(Player* player, int playerIndex)
 			ImGui::TreePop();
 		}
 		ImGui::TreePop();
+		ImGui::PopStyleColor();
 	}
+	ImGui::PopStyleColor();
 }
 
 void Core::OnEndscene()
@@ -164,9 +168,9 @@ void Core::OnEndscene()
 		{
 			for (int i = 0; i < totalPlayers; i++)
 			{
-				ImGui::Text("Player %x", playerArray->playerData[i].player);
-				ImGui::Text("Entitylist %x", playerArray->playerData[i].player->objectManager);
-				ImGui::Text("EntitylistCount %x", &playerArray->playerData[i].player->objectManager->iObjectCount);
+				//ImGui::Text("Player %x", playerArray->playerData[i].player);
+				//ImGui::Text("Entitylist %x", playerArray->playerData[i].player->objectManager);
+				//ImGui::Text("EntitylistCount %x", &playerArray->playerData[i].player->objectManager->iObjectCount);
 				createPlayerTreeNode(playerArray->playerData[i].player, i);
 			}
 			FeatureManager::Get()->OnMenuMainWindow();
