@@ -10,7 +10,7 @@
 void Rename(char* addressOfLabel, char* newName)
 {
 	std::string sNewName = std::string(newName);
-	memcpy(addressOfLabel, newName, sNewName.size() + 2); //+2 for null bytes
+	memcpy(addressOfLabel, newName, sNewName.size() + 1); //+1 for null byte
 }
 
 void RenameUnits::OnInitialise()
@@ -42,4 +42,16 @@ void RenameUnits::OnMenuMainWindow()
 		ImGui::InputText("Fisherman", fisherman, 9);
 		ImGui::TreePop();
 	}
+}
+
+void RenameUnits::OnShutdown()
+{
+	Rename(lumberjack, "Lumberjack");
+	Rename(forager, "Forager");
+	Rename(goldminer, "Gold Miner");
+	Rename(stoneminer, "Stone Miner");
+	Rename(farmer, "Farmer");
+	Rename(shepherd, "Shepherd");
+	Rename(hunter, "Hunter");
+	Rename(fisherman, "Fisherman");
 }

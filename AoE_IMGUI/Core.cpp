@@ -113,17 +113,16 @@ void Core::OnEndscene()
 	FeatureManager::Get()->OnDraw();
 	Player* gaiaPlayer = *(Player**)(playerArray);
 
-	static DWORD buildingVmt = *(DWORD*)playerArray->playerData[0].player->objectManager->units[0];
-	static DWORD unitVmt = *(DWORD*)playerArray->playerData[0].player->objectManager->units[4];
+	//static DWORD buildingVmt = *(DWORD*)playerArray->playerData[0].player->objectManager->units[0];
+	//static DWORD unitVmt = *(DWORD*)playerArray->playerData[0].player->objectManager->units[4];
 
 
 	if (gaiaPlayer)
 	{
 		for (int i = 0; i < gaiaPlayer->objectManager->iObjectCount; i++)
 		{
-			
 			Unit* unit = gaiaPlayer->objectManager->units[i];
-			if (!unit)// || !(*(DWORD*)unit == unitVmt || *(DWORD*)unit == buildingVmt))
+			if (!unit)
 			{
 				continue;
 			}
@@ -146,20 +145,11 @@ void Core::OnEndscene()
 			{
 				continue;
 			}
-			if (*(DWORD*)unit == unitVmt)
-			{
-				FeatureManager::Get()->OnUnitIteration(unit, player, i);
-			}
-			if (*(DWORD*)unit == buildingVmt)
-			{
-				FeatureManager::Get()->OnBuildingIteration(unit, player, i);
-			}
+			FeatureManager::Get()->OnUnitIteration(unit, player, i);
 		}
 	}
 
-
 	Renderer::Get()->EndScene();
-
 
 	ImGui::SetNextWindowBgAlpha(0.35f);
 	if (openOverlay)
@@ -168,16 +158,12 @@ void Core::OnEndscene()
 		{
 			for (int i = 0; i < totalPlayers; i++)
 			{
-				//ImGui::Text("Player %x", playerArray->playerData[i].player);
-				//ImGui::Text("Entitylist %x", playerArray->playerData[i].player->objectManager);
-				//ImGui::Text("EntitylistCount %x", &playerArray->playerData[i].player->objectManager->iObjectCount);
 				createPlayerTreeNode(playerArray->playerData[i].player, i);
 			}
 			FeatureManager::Get()->OnMenuMainWindow();
 		}
 		ImGui::End();
 	}
-
 
 
 }

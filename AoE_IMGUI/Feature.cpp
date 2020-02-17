@@ -39,8 +39,3 @@ void Feature::OnNeutralUnit(Unit * unit)
 {
 
 }
-
-void Feature::OnBuildingIteration(Unit* unit, Player* player, int playerIndex)
-{
-
-}

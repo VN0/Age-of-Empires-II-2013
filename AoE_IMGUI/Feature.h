@@ -19,7 +19,6 @@ public:
 	
 	virtual void OnPlayerIteration(Player* player, int playerIndex);
 	virtual void OnUnitIteration(Unit* unit, Player* player, int playerIndex);
-	virtual void OnBuildingIteration(Unit* unit, Player* player, int playerIndex);
 
 	virtual void OnNeutralUnit(Unit* unit);
 };

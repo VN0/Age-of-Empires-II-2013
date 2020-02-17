@@ -65,7 +65,7 @@ enum class EnumUnitDataClass
 	Ballista = 55,
 	Raider = 56,
 	CavalryRaider = 57,
-	LIvestock = 58,
+	Livestock = 58,
 	King = 59,
 	MiscBuilding = 60,
 	ControlledAnimal = 61

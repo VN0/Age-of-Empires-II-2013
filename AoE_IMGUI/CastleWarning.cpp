@@ -7,7 +7,7 @@
 
 #include <string>
 
-void CastleWarning::OnBuildingIteration(Unit* unit, Player* player, int playerIndex)
+void CastleWarning::OnUnitIteration(Unit* unit, Player* player, int playerIndex)
 {
 	if (enabled && playerIndex != 0 && strcmp(unit->pUnitData->name, "CSTL") == 0)
 	{

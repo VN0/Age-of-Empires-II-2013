@@ -15,4 +15,5 @@ class RenameUnits : public Feature
 	//Callbacks
 	void OnInitialise();
 	void OnMenuMainWindow();
+	void OnShutdown();
 };

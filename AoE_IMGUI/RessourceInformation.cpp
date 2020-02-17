@@ -62,7 +62,7 @@ RessourceDistribution getCivilianDistribution(Player* player)
 			resDist.wood += 1;
 
 		if (EnumUnitDataClass::BerryBush == targetClass
-			|| EnumUnitDataClass::LIvestock == targetClass
+			|| EnumUnitDataClass::Livestock == targetClass
 			|| EnumUnitDataClass::PreyAnimal == targetClass
 			|| EnumUnitDataClass::PredatorAnimal == targetClass
 			|| EnumUnitDataClass::Farm == targetClass)

@@ -5,7 +5,7 @@ class CastleWarning : public Feature
 {
 	//Callbacks
 	void OnMenuMainWindow();
-	void OnBuildingIteration(Unit* unit, Player* player, int playerIndex);
+	void OnUnitIteration(Unit* unit, Player* player, int playerIndex);
 
 public:
 	CastleWarning();
