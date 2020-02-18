@@ -28,14 +28,13 @@ Renderer* Renderer::Get()
 void Renderer::BeginScene()
 {
 	ImGuiIO& io = ImGui::GetIO();
-
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0.0f, 0.0f });
 	ImGui::PushStyleColor(ImGuiCol_WindowBg, { 0.0f, 0.0f, 0.0f, 0.0f });
 	ImGui::Begin("##Backbuffer", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoInputs);
-	
 	ImGui::SetWindowPos(ImVec2(0, 0), ImGuiCond_Always);
 	ImGui::SetWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y), ImGuiCond_Always);
+	inFrame = true;
 }
 
 void Renderer::EndScene()
@@ -46,6 +45,7 @@ void Renderer::EndScene()
 	ImGui::End();
 	ImGui::PopStyleColor();
 	ImGui::PopStyleVar(2);
+	inFrame = false;
 }
 
 void Renderer::RenderText(const std::string& text, const ImVec2& position, float size, uint32_t color, bool center)

@@ -15,6 +15,9 @@ class Renderer
 
 	public:
 		static Renderer* Get();
+
+		bool inFrame;
+
 		void BeginScene();
 		void EndScene();
 

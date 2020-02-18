@@ -41,7 +41,7 @@ void createPlayerTreeNode(Player* player, int playerIndex)
 	ImGui::PushStyleColor(ImGuiCol_Text, Engine::Get()->GetPlayerColorImGUI(player->colorPtr->playerColor));
 	if (ImGui::TreeNode((char*)player->name))
 	{
-		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1,1,1,1));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1, 1, 1, 1));
 		FeatureManager::Get()->OnMenuPlayerTreenode(player, playerIndex);
 		if (ImGui::TreeNode("Units"))
 		{
@@ -86,84 +86,108 @@ void createPlayerTreeNode(Player* player, int playerIndex)
 
 void Core::OnEndscene()
 {
-	Main* main = Engine::Get()->GetMain();
-	if (!main)
+	__try
 	{
-		return;
-	}
-
-	GameData* gameData = main->GameData;
-	if (!gameData)
-	{
-		return;
-	}
-	PlayerArray* playerArray = gameData->pPlayerArray;
-	if (!gameData)
-	{
-		return;
-
-	}
-	int totalPlayers = Engine::Get()->GetTotalPlayers();
-
-	static bool openOverlay = true;
-	if (GetAsyncKeyState(VK_INSERT) & 1) { openOverlay = !openOverlay; }
-
-
-	Renderer::Get()->BeginScene();
-	FeatureManager::Get()->OnDraw();
-	Player* gaiaPlayer = *(Player**)(playerArray);
-
-	//static DWORD buildingVmt = *(DWORD*)playerArray->playerData[0].player->objectManager->units[0];
-	//static DWORD unitVmt = *(DWORD*)playerArray->playerData[0].player->objectManager->units[4];
-
-
-	if (gaiaPlayer)
-	{
-		for (int i = 0; i < gaiaPlayer->objectManager->iObjectCount; i++)
+		BaseGameScreen* baseGameScreen = Engine::Get()->GetBaseGameScreen();
+		if (!baseGameScreen)
 		{
-			Unit* unit = gaiaPlayer->objectManager->units[i];
-			if (!unit)
+			return;
+		}
+
+		if (!baseGameScreen->gameScreenPtr)
+		{
+			ImGui::Begin("AoE Hackbase - BDKPLayer", (bool*)0, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
+			ImGui::Text("Waiting for game to start...");
+			ImGui::End();
+			return;
+		}
+
+		Main* main = Engine::Get()->GetMain();
+		if (!main)
+		{
+			return;
+		}
+
+		GameData* gameData = main->GameData;
+		if (!gameData)
+		{
+			return;
+		}
+		PlayerArray* playerArray = gameData->pPlayerArray;
+		if (!gameData)
+		{
+			return;
+
+		}
+		int totalPlayers = Engine::Get()->GetTotalPlayers();
+
+		
+		static bool openOverlay = true;
+		if (GetAsyncKeyState(VK_INSERT) & 1) { openOverlay = !openOverlay; }
+
+		Renderer::Get()->BeginScene();
+		FeatureManager::Get()->OnDraw();
+		Player* gaiaPlayer = *(Player**)(playerArray);
+
+		if (gaiaPlayer)
+		{
+			for (int i = 0; i < gaiaPlayer->objectManager->iObjectCount; i++)
+			{
+				Unit* unit = gaiaPlayer->objectManager->units[i];
+				if (!unit)
+				{
+					continue;
+				}
+				FeatureManager::Get()->OnNeutralUnit(unit);
+			}
+		}
+
+		for (int i = 0; i < totalPlayers; i++)
+		{
+			Player* player = playerArray->playerData[i].player;
+			if (!player)
 			{
 				continue;
 			}
-			FeatureManager::Get()->OnNeutralUnit(unit);
-		}
-	}
-
-	for (int i = 0; i < totalPlayers; i++)
-	{
-		Player* player = playerArray->playerData[i].player;
-		if (!player)
-		{
-			continue;
-		}
-		FeatureManager::Get()->OnPlayerIteration(player, i);
-		for (int j = 0; j < player->objectManager->iObjectCount; j++)
-		{
-			Unit* unit = player->objectManager->units[j];
-			if (!unit)
+			FeatureManager::Get()->OnPlayerIteration(player, i);
+			for (int j = 0; j < player->objectManager->iObjectCount; j++)
 			{
-				continue;
+				Unit* unit = player->objectManager->units[j];
+				if (!unit)
+				{
+					continue;
+				}
+				FeatureManager::Get()->OnUnitIteration(unit, player, i);
 			}
-			FeatureManager::Get()->OnUnitIteration(unit, player, i);
 		}
-	}
 
-	Renderer::Get()->EndScene();
+		Renderer::Get()->EndScene();
 
-	ImGui::SetNextWindowBgAlpha(0.35f);
-	if (openOverlay)
-	{
-		if (ImGui::Begin("Age of Empires 2 HD", &openOverlay, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav))
+		ImGui::SetNextWindowBgAlpha(0.35f);
+		if (openOverlay)
 		{
-			for (int i = 0; i < totalPlayers; i++)
+			__try
 			{
-				createPlayerTreeNode(playerArray->playerData[i].player, i);
+				if (ImGui::Begin("Age of Empires 2 HD", &openOverlay, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav))
+				{
+					for (int i = 0; i < totalPlayers; i++)
+					{
+						createPlayerTreeNode(playerArray->playerData[i].player, i);
+					}
+					FeatureManager::Get()->OnMenuMainWindow();
+				}
 			}
-			FeatureManager::Get()->OnMenuMainWindow();
+			__finally
+			{
+				ImGui::End();
+			}
 		}
-		ImGui::End();
 	}
-
-
+	__except (1)
+	{
+		if (Renderer::Get()->inFrame)
+		{
+			Renderer::Get()->EndScene();
+		}
+	}
 }

@@ -62,7 +62,7 @@ Vector2 Engine::worldToScreen(Vector3 position)
 {
 	int tile_width = 96;
 	int tile_height = 96;
-	BaseGameScreen* baseGameSreen = reinterpret_cast<BaseGameScreen*>(base + Offsets::baseGameScreen);
+	BaseGameScreen* baseGameSreen = GetBaseGameScreen();
 
 	float xDelta = position.x - baseGameSreen->gameScreenPtr->mainViewPtr->PosScreen.x;
 	float yDelta = position.y - baseGameSreen->gameScreenPtr->mainViewPtr->PosScreen.y;

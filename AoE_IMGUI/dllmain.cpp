@@ -58,7 +58,7 @@ HRESULT __stdcall Hooked_EndScene(IDirect3DDevice9 * pDevice) // Our hooked ends
 
 	static Core* core = new Core();
 	core->OnEndscene();
-
+		
 	ImGui::EndFrame();
 	ImGui::Render();
 
