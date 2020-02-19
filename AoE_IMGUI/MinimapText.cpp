@@ -5,6 +5,7 @@
 #include "Engine.h"
 #include "Sdk.h"
 #include "Renderer.h"
+#include "Utility.h"
 
 
 
@@ -39,10 +40,9 @@ REGISTER_HOOK(GenericMinimapHook, returnBytesLocation)
 
 void MinimapText::OnInitialise()
 {
-	int32_t minimapHookOffset = (int32_t)GetModuleHandle(NULL) + 0x2c84b8;
+	int32_t minimapHookOffset = (int32_t)Utility::ScanProc("\x68\x00\x00\x00\x00\x50\xE8\x00\x00\x00\x00\x8B\x83", "x????xx????xx");
 	
 	minimapHook = new DetourHook();
-
 
 	returnBytesLocation = (int32_t)minimapHook->Hook((PBYTE)minimapHookOffset, (PBYTE)GenericMinimapHookTrampoline, 5);
 }

@@ -5,8 +5,6 @@
 
 
 
-
-
 std::vector<Unit*> Player::GetUnitsByBaseId(int baseId)
 {
 	std::vector<Unit*> units;
