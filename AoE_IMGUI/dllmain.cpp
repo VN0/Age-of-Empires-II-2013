@@ -156,7 +156,7 @@ DWORD WINAPI MainThread(LPVOID param)
 	//printf("Gametime: %x\n", (DWORD)GetModuleHandle(NULL) + 0x338720);
 	//printf("UnitIteration: %x\n", (DWORD)GetModuleHandle(NULL) + 0x43633A);
 
-	while (!(GetAsyncKeyState(0x5) & 0x8000))
+	while (!(GetAsyncKeyState(VK_DELETE) & 0x8000))
 	{
 		Sleep(1);
 	}

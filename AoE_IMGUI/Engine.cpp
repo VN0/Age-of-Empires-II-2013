@@ -5,8 +5,6 @@
 #include "Renderer.h"
 
 
-#include <string>
-
 Engine* Engine::instance = NULL;
 
 Engine::Engine()
@@ -137,4 +135,46 @@ ImVec4 Engine::GetPlayerColorImGUI(int colorIndex)
 		break;
 	}
 	return color;
+}
+
+Player* Engine::GetPlayerByName(char* playerName)
+{
+	BaseGameScreen* baseGameScreen = GetBaseGameScreen();
+	if (!baseGameScreen)
+	{
+		return NULL;
+	}
+
+	Main* main = GetMain();
+	if (!main)
+	{
+		return NULL;
+	}
+
+	GameData* gameData = main->GameData;
+	if (!gameData)
+	{
+		return NULL;
+	}
+	PlayerArray* playerArray = gameData->pPlayerArray;
+	if (!gameData)
+	{
+		return NULL;
+	}
+	int totalPlayers = GetTotalPlayers();
+
+
+	for (int i = 0; i < totalPlayers; i++)
+	{
+		Player* player = playerArray->playerData[i].player;
+		if (!player)
+		{
+			continue;
+		}
+		if (strcmp(playerName, player->name) == 0)
+		{
+			return player;
+		}
+	}
+	return NULL;
 }

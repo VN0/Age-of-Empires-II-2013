@@ -63,6 +63,9 @@
     <ClCompile Include="RenameUnits.cpp">
       <Filter>Source Files\Features</Filter>
     </ClCompile>
+    <ClCompile Include="MinimapText.cpp">
+      <Filter>Source Files\Features</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ImGui\imconfig.h">
@@ -91,9 +94,6 @@
     </ClInclude>
     <ClInclude Include="Patternscaning.h">
       <Filter>Header Files\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="DetourHook.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Offsets.h">
       <Filter>Header Files\SDK</Filter>
@@ -155,6 +155,15 @@
     <ClInclude Include="Utility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DetourHook.h">
+      <Filter>Header Files\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="RegisterHook.h">
+      <Filter>Header Files\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="MinimapText.h">
+      <Filter>Header Files\Features</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
@@ -186,6 +195,9 @@
     </Filter>
     <Filter Include="Source Files\Features\imgui">
       <UniqueIdentifier>{e29cd3c3-0059-42b3-9119-586b7bae21fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Hook">
+      <UniqueIdentifier>{badeb670-f15c-4a54-80b4-4417556e65a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

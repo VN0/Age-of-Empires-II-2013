@@ -69,6 +69,11 @@ void ESP::OnUnitIteration(Unit* unit, Player* player, int playerIndex)
 {
 	if (playerUnitEsp[playerIndex])
 	{
+		if (strcmp(unit->pUnitData->name, "FLARE") == 0)
+		{
+			return; //Doont display annoying flares that Bots use
+		}
+
 		DrawBox(unit, colors_hex[player->colorPtr->playerColor], playerUnitNameEsp[playerIndex]);
 		if (playerUnitDestinationEsp[playerIndex])
 		{

@@ -21,6 +21,7 @@
 #include "Automation.h"
 #include "CastleWarning.h"
 #include "RenameUnits.h"
+#include "MinimapText.h"
 
 Core::Core()
 {
@@ -29,9 +30,9 @@ Core::Core()
 	FeatureManager::Get()->registerFeature(new CastleWarning());
 	FeatureManager::Get()->registerFeature(new RessourceInformation());
 	//FeatureManager::Get()->registerFeature(new Automation());
+	FeatureManager::Get()->registerFeature(new MinimapText());
 	FeatureManager::Get()->registerFeature(new RenameUnits());
 	FeatureManager::Get()->registerFeature(new Maphack());
-
 
 	FeatureManager::Get()->OnInitialise();
 }
@@ -42,6 +43,7 @@ void createPlayerTreeNode(Player* player, int playerIndex)
 	if (ImGui::TreeNode((char*)player->name))
 	{
 		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1, 1, 1, 1));
+		ImGui::Text("Player %x", player);
 		FeatureManager::Get()->OnMenuPlayerTreenode(player, playerIndex);
 		if (ImGui::TreeNode("Units"))
 		{
@@ -96,7 +98,7 @@ void Core::OnEndscene()
 
 		if (!baseGameScreen->gameScreenPtr)
 		{
-			ImGui::Begin("AoE Hackbase - BDKPLayer", (bool*)0, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
+			ImGui::Begin("AoE Hackbase - BDKPlayer", (bool*)0, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav);
 			ImGui::Text("Waiting for game to start...");
 			ImGui::End();
 			return;

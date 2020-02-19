@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 
+
 struct Vector2;
 struct Vector3;
 struct ImVec4;
@@ -8,6 +9,8 @@ struct ImVec4;
 class Main;
 class Unit;
 class BaseGameScreen;
+class Player;
+
 class Engine
 {
 	static Engine* instance;
@@ -32,4 +35,5 @@ public:
 
 	uint32_t GetPlayerColor(int colorIndex);
 	ImVec4 GetPlayerColorImGUI(int colorIndex);
+	Player* GetPlayerByName(char* playername);
 };
