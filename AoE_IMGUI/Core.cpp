@@ -17,7 +17,7 @@
 //Features
 #include "ESP.h"
 #include "Maphack.h"
-#include "RessourceInformation.h"
+#include "ResourceInformation.h"
 #include "Automation.h"
 #include "CastleWarning.h"
 #include "RenameUnits.h"
@@ -28,7 +28,7 @@ Core::Core()
 	//Register Features here
 	FeatureManager::Get()->registerFeature(new ESP());
 	FeatureManager::Get()->registerFeature(new CastleWarning());
-	FeatureManager::Get()->registerFeature(new RessourceInformation());
+	FeatureManager::Get()->registerFeature(new ResourceInformation());
 	//FeatureManager::Get()->registerFeature(new Automation());
 	FeatureManager::Get()->registerFeature(new MinimapText());
 	FeatureManager::Get()->registerFeature(new RenameUnits());

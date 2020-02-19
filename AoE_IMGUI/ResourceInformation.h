@@ -2,7 +2,7 @@
 #include "Feature.h"
 
 
-class RessourceInformation : public Feature
+class ResourceInformation : public Feature
 {
 	//Callbacks
 	void OnMenuPlayerTreenode(Player* player, int playerIndex);

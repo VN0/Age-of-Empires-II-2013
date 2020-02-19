@@ -191,7 +191,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RenameUnits.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="RessourceInformation.cpp" />
+    <ClCompile Include="ResourceInformation.cpp" />
     <ClCompile Include="Unit.cpp" />
     <ClCompile Include="ESP.cpp" />
   </ItemGroup>
@@ -222,7 +222,7 @@
     <ClInclude Include="RegisterHook.h" />
     <ClInclude Include="RenameUnits.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="RessourceInformation.h" />
+    <ClInclude Include="ResourceInformation.h" />
     <ClInclude Include="Ressources.h" />
     <ClInclude Include="Sdk.h" />
     <ClInclude Include="Unit.h" />

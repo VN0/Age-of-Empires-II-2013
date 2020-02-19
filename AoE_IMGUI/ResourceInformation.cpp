@@ -1,4 +1,4 @@
-#include "RessourceInformation.h"
+#include "ResourceInformation.h"
 
 #include "Sdk.h"
 #include "Renderer.h"
@@ -36,14 +36,14 @@ std::vector<Unit*> getCivilianList(Player* player)
 	return civilian;
 }
 
-struct RessourceDistribution
+struct ResourceDistribution
 {
 	int wood, food, gold, stone;
 };
 
-RessourceDistribution getCivilianDistribution(Player* player)
+ResourceDistribution getCivilianDistribution(Player* player)
 {
-	RessourceDistribution resDist = RessourceDistribution();
+	ResourceDistribution resDist = ResourceDistribution();
 	std::vector<Unit*> civilian = getCivilianList(player);
 
 	for (auto c : civilian)
@@ -105,7 +105,7 @@ std::vector<Unit*> getIdleCivilianList(Player* player)
 	return idle;
 }
 
-void RessourceInformation::OnMenuPlayerTreenode(Player* player, int playerIndex)
+void ResourceInformation::OnMenuPlayerTreenode(Player* player, int playerIndex)
 {
 	//ImGui::Text("Player: %x", player);
 	ImGui::Text("Wood: %.f", player->Ressources->wood);
@@ -115,9 +115,9 @@ void RessourceInformation::OnMenuPlayerTreenode(Player* player, int playerIndex)
 	ImGui::Text("Villigers: %.f", player->Ressources->villagerCount);
 	ImGui::Text("Pop: %.f/%.f", player->Ressources->CurrentPop, player->Ressources->CurrentPop + player->Ressources->popSpaceLeft);
 	
-	RessourceDistribution resDist = getCivilianDistribution(player);
+	ResourceDistribution resDist = getCivilianDistribution(player);
 
-	if (ImGui::TreeNode("Villiger Ressource Distribution"))
+	if (ImGui::TreeNode("Villiger Resource Distribution"))
 	{
 		ImGui::Text("Wood: %d", resDist.wood);
 		ImGui::Text("Food: %d", resDist.food);
