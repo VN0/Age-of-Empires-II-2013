@@ -36,6 +36,28 @@ int Engine::GetTotalPlayers()
 	return *reinterpret_cast<int*>(base + Offsets::totalPlayers);
 }
 
+PlayerArray* Engine::GetPlayerArray()
+{
+	BaseGameScreen* baseGameScreen = GetBaseGameScreen();
+	if (!baseGameScreen)
+	{
+		return NULL;
+	}
+
+	Main* main = GetMain();
+	if (!main)
+	{
+		return NULL;
+	}
+
+	GameData* gameData = main->GameData;
+	if (!gameData)
+	{
+		return NULL;
+	}
+	return gameData->pPlayerArray;
+}
+
 //Vector2 Engine::worldToScreen(Vector3 position)
 //{
 //	int tile_width = 96;
@@ -177,4 +199,14 @@ Player* Engine::GetPlayerByName(char* playerName)
 		}
 	}
 	return NULL;
+}
+
+bool Engine::IsOnScreen(Vector2 screenPosition)
+{
+	BaseGameScreen* baseGameScreen = GetBaseGameScreen();
+	if (!baseGameScreen)
+	{
+		return false;
+	}
+	return screenPosition.x >= 0 && screenPosition.x <= baseGameScreen->gameScreenPtr->ScreenResX1 && screenPosition.y >= 0 && screenPosition.y <= baseGameScreen->gameScreenPtr->ScreenResY1;
 }

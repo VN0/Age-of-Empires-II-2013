@@ -22,6 +22,7 @@
 #include "CastleWarning.h"
 #include "RenameUnits.h"
 #include "MinimapText.h"
+#include "ConvexHullESP.h"
 
 Core::Core()
 {
@@ -31,7 +32,8 @@ Core::Core()
 	FeatureManager::Get()->registerFeature(new ResourceInformation());
 	//FeatureManager::Get()->registerFeature(new Automation());
 	FeatureManager::Get()->registerFeature(new MinimapText());
-	FeatureManager::Get()->registerFeature(new RenameUnits());
+	//FeatureManager::Get()->registerFeature(new ConvexHullESP());
+	//FeatureManager::Get()->registerFeature(new RenameUnits());
 	FeatureManager::Get()->registerFeature(new Maphack());
 
 	FeatureManager::Get()->OnInitialise();
@@ -60,6 +62,8 @@ void createPlayerTreeNode(Player* player, int playerIndex)
 					ImGui::Text("%x", unit);
 					ImGui::SameLine();
 					ImGui::Text("%s", unit->pUnitData->name);
+					ImGui::SameLine();
+					ImGui::Text("%d", unit->pUnitData->Class);
 
 					if (unit->pUnitData->Class == (int16_t)EnumUnitDataClass::Building)
 					{

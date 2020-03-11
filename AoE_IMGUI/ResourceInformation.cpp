@@ -125,4 +125,18 @@ void ResourceInformation::OnMenuPlayerTreenode(Player* player, int playerIndex)
 		ImGui::Text("Stone: %d", resDist.stone);
 		ImGui::TreePop();
 	}
+
+	/*if (ImGui::TreeNode("Unit Distribution"))
+	{
+		std::vector<Unit*> archers = player->GetUnitsOfClassType(EnumUnitDataClass::Archer);
+		std::vector<Unit*> cavalry = player->GetUnitsOfClassType(EnumUnitDataClass::Cavalry);
+		std::vector<Unit*> infantry = player->GetUnitsOfClassType(EnumUnitDataClass::Infantry);
+		std::vector<Unit*> siege = player->GetUnitsOfClassType(EnumUnitDataClass::SiegeWeapon);
+
+		ImGui::Text("Infantry: %d", infantry.size());
+		ImGui::Text("Archer: %d", archers.size());
+		ImGui::Text("Cavalry: %d", cavalry.size());
+		ImGui::Text("Siege: %d", siege.size());
+		ImGui::TreePop();
+	}*/
 }

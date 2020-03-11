@@ -239,5 +239,10 @@ public:
 
 
 	void MoveTo(Vector2 pos, bool deselectAfterMove = false);
+	float GetDistance(Unit* other);
+	float GetDistance(Vector2 pos);
+
+
+	Vector2 GetDestination();
 
 }; //Size: 0x0222

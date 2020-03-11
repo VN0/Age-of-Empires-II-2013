@@ -1,6 +1,8 @@
 #pragma once
 #include "Feature.h"
 
+struct Vector2;
+struct Vector3;
 class ESP : public Feature
 {
 	bool gaiaEsp = true;
@@ -8,6 +10,7 @@ class ESP : public Feature
 	bool stoneESP = true;
 	bool playerUnitEsp[8] = { false,true,true,true,true,true,true,true };
 	bool playerUnitDestinationEsp[8] = { false,true,true,true,true,true,true,true };
+	bool playerUnitImpactLocation[8] = { false,true,true,true,true,true,true,true };
 	bool playerUnitNameEsp[8] = { false,true,true,true,true,true,true,true };
 	//bool playerBuildingEsp[8] = { false,true,true,true,true,true,true,true };
 	//bool playerBuildingNameEsp[8] = { false,true,true,true,true,true,true,true };
@@ -21,5 +24,6 @@ class ESP : public Feature
 	void OnMenuMainWindow();
 
 	void DrawBox(Unit* unit, int32_t color, bool drawName);
+	void DrawBox(Vector3 position, Vector2 edgeSize, int32_t color);
 	void DrawDestination(Unit* unit, int playerIndex);
 };

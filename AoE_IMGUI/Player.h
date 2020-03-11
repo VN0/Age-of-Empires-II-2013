@@ -4,6 +4,7 @@
 
 class Unit;
 class ObjectManager;
+enum class EnumUnitDataClass : int16_t;
 class Player
 {
 public:

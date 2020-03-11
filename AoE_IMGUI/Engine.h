@@ -10,6 +10,7 @@ class Main;
 class Unit;
 class BaseGameScreen;
 class Player;
+class PlayerArray;
 
 class Engine
 {
@@ -27,6 +28,7 @@ public:
 	Main* GetMain();
 	BaseGameScreen* GetBaseGameScreen();
 	int GetTotalPlayers();
+	PlayerArray* GetPlayerArray();
 
 	Vector2 worldToScreen(Vector3 position);
 	Vector2 worldToScreen(Unit* unit);
@@ -36,4 +38,5 @@ public:
 	uint32_t GetPlayerColor(int colorIndex);
 	ImVec4 GetPlayerColorImGUI(int colorIndex);
 	Player* GetPlayerByName(char* playername);
+	bool IsOnScreen(Vector2 screenPosition);
 };

@@ -40,3 +40,29 @@ void Unit::MoveTo(Vector2 pos, bool deselectAfterMove)
 		SendInput(1, &ip, sizeof(INPUT));
 	}
 }
+
+float Unit::GetDistance(Unit* other)
+{
+	Vector2 distanceVec = Vector2(this->vPosReadOnly.x - other->vPosReadOnly.x, this->vPosReadOnly.y - other->vPosReadOnly.y);
+	return sqrt(distanceVec.x * distanceVec.x + distanceVec.y* distanceVec.y);
+}
+
+float Unit::GetDistance(Vector2 pos)
+{
+	Vector2 distanceVec = Vector2(this->vPosReadOnly.x - pos.x, this->vPosReadOnly.y - pos.y);
+	return sqrt(distanceVec.x * distanceVec.x + distanceVec.y * distanceVec.y);
+}
+
+Vector2 Unit::GetDestination()
+{
+	bool canHaveDestination = this->mileage > 0 && this->fHealth > 0;
+	if (canHaveDestination)
+	{
+		bool pointersNotNull = this->pTarget != nullptr && this->pTarget->pTarget != nullptr && this->pTarget->pTarget->pTargetData != nullptr;
+		if (pointersNotNull)
+		{
+			return this->pTarget->pTarget->pTargetData->Destination;
+		}
+	}
+	return Vector2(-1, -1);
+}

@@ -45,6 +45,37 @@ void ESP::DrawBox(Unit* unit, int32_t color, bool drawName = false)
 	}
 }
 
+void ESP::DrawBox(Vector3 position, Vector2 edgeSize, int32_t color)
+{
+	Vector3 one3 = position;
+	one3.x -= edgeSize.x;
+	one3.y -= edgeSize.y;
+	Vector2 one = Engine::Get()->worldToScreen(one3);
+
+	Vector3 two3 = position;
+	two3.x += edgeSize.x;
+	two3.y += edgeSize.y;
+	Vector2 two = Engine::Get()->worldToScreen(two3);
+
+	Vector3 three3 = position;
+	three3.x -= edgeSize.x;
+	three3.y += edgeSize.y;
+	Vector2 three = Engine::Get()->worldToScreen(three3);
+
+	Vector3 four3 = position;
+	four3.x += edgeSize.x;
+	four3.y -= edgeSize.y;
+	Vector2 four = Engine::Get()->worldToScreen(four3);
+
+	ImVec2 ivOne = ImVec2(one.x, one.y);
+	ImVec2 ivTwo = ImVec2(two.x, two.y);
+	ImVec2 ivThree = ImVec2(three.x, three.y);
+	ImVec2 ivFour = ImVec2(four.x, four.y);
+
+
+	Renderer::Get()->RenderRect(ivOne, ivFour, ivTwo, ivThree, color);
+}
+
 void ESP::DrawDestination(Unit* unit, int playerColorIndex)
 {
 	bool canHaveDestination = unit->mileage > 0 && unit->fHealth > 0;
@@ -67,6 +98,21 @@ void ESP::DrawDestination(Unit* unit, int playerColorIndex)
 
 void ESP::OnUnitIteration(Unit* unit, Player* player, int playerIndex)
 {
+	if (playerUnitImpactLocation[playerIndex] && unit->pUnitData->Class == (int16_t)EnumUnitDataClass::Miscellaneous)
+	{
+		if (strcmp(unit->pUnitData->name, "MFMAN") == 0 || strcmp(unit->pUnitData->name, "MFHSB") == 0 || strcmp(unit->pUnitData->name, "MRMAN") == 0 || strcmp(unit->pUnitData->name, "MRSBL") == 0 || strcmp(unit->pUnitData->name, "MRHSB") == 0)
+		{
+			Vector2 destination = unit->GetDestination();
+			DrawBox(Vector3(destination.x, destination.y, 0), Vector2(unit->pUnitData->collisionX, unit->pUnitData->collisionY), colors_hex[player->colorPtr->playerColor]);
+		}
+		return;
+	}
+
+	if (unit->pUnitData->Class == (int16_t)EnumUnitDataClass::Miscellaneous)
+	{
+		return;
+	}
+
 	if (playerUnitEsp[playerIndex])
 	{
 		if (strcmp(unit->pUnitData->name, "FLARE") == 0)
@@ -91,6 +137,7 @@ void ESP::OnMenuPlayerTreenode(Player * player, int playerIndex)
 		ImGui::Checkbox("Unit", &playerUnitEsp[playerIndex]);
 		ImGui::Checkbox("Unit Name", &playerUnitNameEsp[playerIndex]);
 		ImGui::Checkbox("Unit Destination", &playerUnitDestinationEsp[playerIndex]);
+		ImGui::Checkbox("Unit Siege Impact Location", &playerUnitImpactLocation[playerIndex]);
 		//ImGui::Checkbox("Building", &playerBuildingEsp[playerIndex]);
 		//ImGui::Checkbox("Building Name", &playerBuildingNameEsp[playerIndex]);
 		if (ImGui::ColorPicker3("Color", colors[player->colorPtr->playerColor],ImGuiColorEditFlags_NoPicker || ImGuiColorEditFlags_NoOptions || ImGuiColorEditFlags_NoSmallPreview ||  ImGuiColorEditFlags_NoInputs ||  ImGuiColorEditFlags_NoTooltip ||  ImGuiColorEditFlags_NoLabel || ImGuiColorEditFlags_NoSidePreview || ImGuiColorEditFlags_NoDragDrop))

@@ -4,7 +4,7 @@
 
 
 
-enum class EnumUnitDataClass
+enum class EnumUnitDataClass : int16_t
 {
 	InvalidClass = -1,
 	Archer = 0,
@@ -643,6 +643,7 @@ struct Vector2
 		this->x = x;
 		this->y = y;
 	}
+
 };
 
 
