@@ -22,7 +22,7 @@
 #include "CastleWarning.h"
 #include "RenameUnits.h"
 #include "MinimapText.h"
-#include "ConvexHullESP.h"
+//#include "ConvexHullESP.h"
 
 Core::Core()
 {
